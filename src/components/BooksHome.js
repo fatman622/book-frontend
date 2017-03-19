@@ -82,7 +82,7 @@ class BooksHome extends Component{
 	render(){
 		return(
 			<div>
-				
+				<NewBook />
 				<DropDownMenu
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
