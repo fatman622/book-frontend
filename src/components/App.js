@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-require('../../scss/style.scss');
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
