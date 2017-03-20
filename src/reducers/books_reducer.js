@@ -1,4 +1,4 @@
-import {GET_BOOKS, GET_BOOK, CREATE_BOOK} from '../actions/types';
+import {GET_BOOKS, GET_BOOK} from '../actions/types';
 
 const INITIAL_STATE ={all: [], book: null};
 

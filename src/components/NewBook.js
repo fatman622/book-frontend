@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {reduxForm, Field, reset, SubmissionError} from 'redux-form';
+import {reduxForm, Field, SubmissionError} from 'redux-form';
 import {createBook, getBooks} from '../actions/index';
 import {connect} from 'react-redux';
 import TextField from 'material-ui/TextField';
@@ -29,7 +29,7 @@ class NewBook extends Component{
 	}
 
 	onSubmit(data){
-		if(data.available != true){
+		if(data.available !== true){
 			data.available = false
 		}
 		const {createBook, reset} = this.props;
@@ -45,12 +45,13 @@ class NewBook extends Component{
 	    } 
 			this.props.getBooks();
 			reset()
+
 		});
 	 
 	}
 
 	render(){
-		const {handleSubmit, pristine, reset } = this.props;
+		const {handleSubmit} = this.props;
 		return(
 			<div className="newBook">
 				<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>

@@ -6,11 +6,8 @@ import NewBook from './NewBook';
 import {SHOW_ALL, SHOW_BY_NAME} from '../actions/types';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import FlatButton from 'material-ui/FlatButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import Checkbox from 'material-ui/Checkbox';
 
 const styles = {
@@ -39,7 +36,7 @@ class BooksHome extends Component{
  	}
 
 	handleChange = (filter, event, value, index ) => {
-		if(value == 'ALL'){
+		if(value === 'ALL'){
 			this.setState({ filterValue: '' })
 			this.setState({ filter: SHOW_ALL })
 		}else{
