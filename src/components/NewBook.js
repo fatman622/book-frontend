@@ -9,8 +9,14 @@ import Checkbox from 'material-ui/Checkbox';
 
 const renderInput = field => (
 	<div>
-		<TextField hintText={"Enter " + field.input.name} errorText={field.error}>
-			<input type={field.type} {...field.input} />
+		<TextField 
+			hintText={"Enter " + field.input.name} 
+			errorText={field.error}
+		>
+			<input 
+				type={field.type} 
+				{...field.input} 
+			/>
 		</TextField>
 	</div>
 )
@@ -18,8 +24,8 @@ const renderInput = field => (
 const renderCheckbox = props => (
 	<div>
 	  <Checkbox 
-	  label={props.label}
-	  {...props.input}/>
+		  label={props.label}
+		  {...props.input}/>
 	</div>
 )
 
@@ -34,8 +40,8 @@ class NewBook extends Component{
 		}
 		const {createBook, reset} = this.props;
 		return createBook(data).then(() => {
-			if (data.autor == null) {
-	      throw new SubmissionError({ autor: 'This field is required'})
+			if (data.author == null) {
+	      throw new SubmissionError({ author: 'This field is required'})
 	    } 
 			if (data.text == null) {
 	      throw new SubmissionError({ text: 'This field is required'})
@@ -43,9 +49,9 @@ class NewBook extends Component{
 	    if (data.pages == null) {
 	      throw new SubmissionError({ pages: 'This field is required'})
 	    } 
+	    console.log("Data" ,data)
 			this.props.getBooks();
 			reset()
-
 		});
 	 
 	}
@@ -55,11 +61,31 @@ class NewBook extends Component{
 		return(
 			<div className="newBook">
 				<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field name="autor" component={renderInput} type="text" />                     
-          <Field name="text" component={renderInput} type="text" /> 
-          <Field name="pages" component={renderInput} type="number" />
-          <Field name="available" component={renderCheckbox} label="Available" />                
-        	<FlatButton label="Save" primary={true} type="submit"/>
+          <Field 
+          	name="author" 
+          	component={renderInput} 
+          	type="text" 
+          />                     
+          <Field 
+          	name="text" 
+          	component={renderInput} 
+          	type="text" 
+          /> 
+          <Field 
+          	name="pages" 
+          	component={renderInput} 
+          	type="number" 
+          />
+          <Field 
+          	name="available" 
+          	component={renderCheckbox} 
+          	label="Available" 
+          />                
+        	<FlatButton 
+        		label="Save" 
+        		primary={true} 
+        		type="submit"
+        	/>
 	      </form>
 			</div>
 		);

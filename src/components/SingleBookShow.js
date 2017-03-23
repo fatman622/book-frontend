@@ -4,6 +4,7 @@ import {getBook, deleteBook} from '../actions/index';
 
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+
 class SingleBookShow extends Component{
 
 	componentWillMount() {
@@ -12,9 +13,9 @@ class SingleBookShow extends Component{
 
 	deleteButtonClick(){
 		this.props.deleteBook(this.props.params.id)
-		.then(() => {
-			this.context.router.push('/');
-		});
+			.then(() => {
+				this.context.router.push('/');
+			});
 	}
 
 	static contextTypes = {
@@ -34,17 +35,20 @@ class SingleBookShow extends Component{
 
 		return(
 			<div>
-
-			 <Card>
+			 	<Card>
 			    <CardHeader
-			      title={"Author: " + this.props.book.autor}
+			      title={"Author: " + this.props.book.author}
 			    />
-			    <CardText>
-			     	{this.props.book.text}
-			    </CardText>
+				    <CardText>
+				     	{this.props.book.text}
+				    </CardText>
 		      	<CardActions>
-			      <FlatButton secondary={true} label="Delete" onClick={this.deleteButtonClick.bind(this)} style={styles.DeleteBook}/>
-			    </CardActions>
+			      	<FlatButton 
+			      		secondary={true} 
+		      			label="Delete" 
+		      			onClick={this.deleteButtonClick.bind(this)} 
+		      			style={styles.DeleteBook}/>
+			    	</CardActions>
 			  </Card>
 			</div>
 		);

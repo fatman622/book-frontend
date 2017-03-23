@@ -4,8 +4,8 @@ import axios from 'axios';
 // const API_URL = "http://localhost:3000/api/v1" ;
 const API_URL = "https://book-api-fatman622.herokuapp.com/api/v1" ;
 
-export function getBooks(){
-	const request = axios.get(`${API_URL}/books`); 
+export function getBooks(props){
+	const request = axios.get(`${API_URL}/books`, props); 
 
 	return {
 		type: GET_BOOKS,

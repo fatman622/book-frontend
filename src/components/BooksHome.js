@@ -3,12 +3,15 @@ import {connect} from 'react-redux';
 import {getBooks} from '../actions/index';
 import {Link} from 'react-router';
 import NewBook from './NewBook';
+import FormFilters from './FormFilters';
 import {SHOW_ALL, SHOW_BY_NAME} from '../actions/types';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
+import Drawer from 'material-ui/Drawer';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
   customWidth: {
@@ -25,15 +28,23 @@ function uniq(a, param){
 }
 
 class BooksHome extends Component{
+
 	componentWillMount(){
-		this.props.getBooks();
+		const params = this.state;
+		this.props.getBooks(params);
+		console.log(params)
 	}
 
  	state = {
+ 		params: { },
+ 		open: false,
  		filter: SHOW_ALL,
  		filterValue: '',
- 		value: 'ALL'
+ 		value: 'ALL',
+ 		books: this.props.books
  	}
+
+	handleToggle = () => this.setState({open: !this.state.open});
 
 	handleChange = (filter, event, value, index ) => {
 		if(value === 'ALL'){
@@ -44,7 +55,6 @@ class BooksHome extends Component{
 			this.setState({ filter: SHOW_BY_NAME })
 		}
 		this.setState({ value })
-		
 	}
 
 	renderBooks(){
@@ -57,20 +67,23 @@ class BooksHome extends Component{
 
 		return filterBook.map((book) => {
 			return (
-				<TableRow key={book.id}>
+				<TableRow 
+					key={book.id}>
 			        <TableRowColumn>
-			        	<Link to={"books/" + book.id}> {book.id} </Link>
+			        	<Link 
+			        		to={"books/" + book.id}> 
+		        			{book.id} 
+	        			</Link>
 			        </TableRowColumn>
-			        <TableRowColumn>{book.autor}</TableRowColumn>
+			        <TableRowColumn>{book.author}</TableRowColumn>
 			        <TableRowColumn>{book.text}</TableRowColumn>
 			        <TableRowColumn>{book.pages}</TableRowColumn>
-			         <TableRowColumn>
-			         <Checkbox
-						      checked={book.available}
-						      disabled={true}
-						    />
-			         
-			         </TableRowColumn>
+							<TableRowColumn>
+								<Checkbox
+								  checked={book.available}
+								  disabled={true}
+								/>
+							</TableRowColumn>
 				</TableRow>
 			)
 		});
@@ -86,26 +99,48 @@ class BooksHome extends Component{
           style={styles.customWidth}
           autoWidth={false}
         >
-       	 <MenuItem value={'ALL'} primaryText="Select autor" onTouchTap={this.handleChange.bind(this)}/>
-         	{
-         	 uniq(this.props.books, 'autor').map(book => 
-         		<MenuItem key={book.id} value={book.autor} primaryText={book.autor} />
-         	)}
+       		<MenuItem
+	       	  value={'ALL'}
+	       	  primaryText="Select autor"
+	       	  onTouchTap={this.handleChange.bind(this)}
+       	  />
+	         	{
+						uniq(this.props.books, 'autor').map(book => 
+	         		<MenuItem
+	         		 key={book.id}
+	         		 value={book.autor}
+	         		 primaryText={book.autor}
+	         		 />
+	         	)}
         </DropDownMenu>
+
+        <RaisedButton
+          label="Filter"
+          onTouchTap={this.handleToggle}
+        />
+
+       	<Drawer 
+       		width={200} 
+       		openSecondary={true} 
+       		open={this.state.open} 
+       	>
+				<FormFilters />
+        </Drawer>
+
 				<Table>
-				    <TableHeader>
-				      <TableRow>
-				        <TableHeaderColumn>ID</TableHeaderColumn>
-				        <TableHeaderColumn>Author</TableHeaderColumn>
-				        <TableHeaderColumn>Text</TableHeaderColumn>
-				        <TableHeaderColumn>Pages</TableHeaderColumn>
-				        <TableHeaderColumn>Available</TableHeaderColumn>
-				      </TableRow>
-				    </TableHeader>
-					 <TableBody>
+			    <TableHeader>
+			      <TableRow>
+			        <TableHeaderColumn>ID</TableHeaderColumn>
+			        <TableHeaderColumn>Author</TableHeaderColumn>
+			        <TableHeaderColumn>Text</TableHeaderColumn>
+			        <TableHeaderColumn>Pages</TableHeaderColumn>
+			        <TableHeaderColumn>Available</TableHeaderColumn>
+			      </TableRow>
+			    </TableHeader>
+					<TableBody>
 						{this.renderBooks()}
 					</TableBody>
-  				</Table>
+				</Table>
 			</div>
 		);
 	}
