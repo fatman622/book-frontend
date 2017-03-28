@@ -29,20 +29,20 @@ function uniq(a, param){
 
 class BooksHome extends Component{
 
-	componentWillMount(){
-		const params = this.state;
-		this.props.getBooks(params);
-		console.log(params)
-	}
-
- 	state = {
- 		params: { },
+	state = {
+ 		// params: { available: true },
  		open: false,
  		filter: SHOW_ALL,
  		filterValue: '',
  		value: 'ALL',
  		books: this.props.books
  	}
+
+	componentWillMount(){
+		const params = this.state;
+		this.props.getBooks(params);
+		console.log(params)
+	}
 
 	handleToggle = () => this.setState({open: !this.state.open});
 
@@ -60,7 +60,7 @@ class BooksHome extends Component{
 	renderBooks(){
 		const BOOK_FILTER = {
 			[SHOW_ALL]: () => true,
-			[SHOW_BY_NAME]: book => book.autor === this.state.filterValue 
+			[SHOW_BY_NAME]: book => book.author === this.state.filterValue 
 		}
 		const {filter} = this.state;
 		const filterBook = this.props.books.filter(BOOK_FILTER[filter])
@@ -101,15 +101,15 @@ class BooksHome extends Component{
         >
        		<MenuItem
 	       	  value={'ALL'}
-	       	  primaryText="Select autor"
+	       	  primaryText="Select author"
 	       	  onTouchTap={this.handleChange.bind(this)}
        	  />
 	         	{
-						uniq(this.props.books, 'autor').map(book => 
+						uniq(this.props.books, 'author').map(book => 
 	         		<MenuItem
 	         		 key={book.id}
-	         		 value={book.autor}
-	         		 primaryText={book.autor}
+	         		 value={book.author}
+	         		 primaryText={book.author}
 	         		 />
 	         	)}
         </DropDownMenu>

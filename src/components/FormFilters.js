@@ -3,67 +3,63 @@ import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
 import {getBooks} from '../actions/index';
 import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
-import FlatButton from 'material-ui/FlatButton';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 const renderInput = field => (
-	<div>
-		<TextField 
-			hintText={"Enter " + field.input.name} 
-		>
-			<input 
-				type={field.type} 
-				{...field.input} 
-			/>
-		</TextField>
-	</div>
+	<TextField 
+		hintText={"Enter " + field.input.name} >
+		<input 
+			type={field.type} 
+			{...field.input} 
+		/>
+	</TextField>
 )
 
-const renderCheckbox = props => (
-	<div>
-	  <Checkbox 
-		  label={props.label}
-		  {...props.input}/>
-	</div>
+const renderRadioGroup = ({ input, ...rest }) => (
+	<RadioButtonGroup {...input} {...rest}
+    valueSelected={input.value}
+    onChange={(event, value) => input.onChange(value)}
+  />
 )
 
 class FormFilters extends Component{
-	
-	formChange(data){
-		// if(data.available !== true){
-		// 	data.available = false
-		// }
-		if (data.author !== null){
-			this.props.getBooks({ params: { author: data.author } });
-		}
-		if (data.available === true){
-			this.props.getBooks({ params: { available: data.available } });
-		}
-		console.log("Params from form ", data);
+state = {
+ 		disabledTrue: false,
+ 		disabledFalse: true
+ 	}
+ 	disabledRadio(){
+		this.setState({ disabledTrue: !this.state.disabledTrue })
+		this.setState({ disabledFalse: !this.state.disabledFalse })
+	}
+
+	formKeyUp(data){
+		console.log(data)
+		this.props.getBooks({ params: { author: data.author,  available: data.available}});
+	}
+
+	formAvailble(data){
+		data.available = !data.available;
+		console.log(data)
+		this.props.getBooks({ params: { author: data.author,  available: data.available}});
 	}
 
 	render(){
 		const {handleSubmit} = this.props;
 		return(
-			<form 
-				// onKeyUp={handleSubmit(this.formChange.bind(this))}
-				onSubmit={handleSubmit(this.formChange.bind(this))}>
-			 <Field 
+			<div onKeyUp={handleSubmit(this.formKeyUp.bind(this))}>
+			 	<Field 
         	name="author" 
         	component={renderInput} 
         	type="text" 
         />
         <Field 
-        	name="available" 
-        	component={renderCheckbox} 
-        	label="Available" 
-        />  
-        <FlatButton 
-        		label="Filter" 
-        		primary={true} 
-        		type="submit"
-        	/>     
-      </form>    
+        	onChange={handleSubmit(this.formAvailble.bind(this))} 
+      		name="available" 
+      		component={renderRadioGroup}>
+          <RadioButton name="trueRadio" value={true} onClick={this.disabledRadio.bind(this)} label="Available" disabled={this.state.disabledTrue}/>
+          <RadioButton name="falseRadio" value={false} onClick={this.disabledRadio.bind(this)} label="Not Available" disabled={this.state.disabledFalse}/>
+        </Field>
+      </div>
 		);
 	}
 }
