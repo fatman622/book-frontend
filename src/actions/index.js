@@ -1,8 +1,17 @@
-import {GET_BOOKS, GET_BOOK, CREATE_BOOK, DELETE_BOOK} from './types';
+import {GET_BOOKS, GET_BOOK, CREATE_BOOK, DELETE_BOOK, GET_BOOKS_ELASTIC} from './types';
 import axios from 'axios';
 
 // const API_URL = "http://localhost:3000/api/v1" ;
 const API_URL = "https://book-api-fatman622.herokuapp.com/api/v1" ;
+
+export function getBooksElastic(props){
+	const request = axios.get(`${API_URL}/books/search`, props); 
+
+	return {
+		type: GET_BOOKS_ELASTIC,
+		payload: request
+	};
+}
 
 export function getBooks(props){
 	const request = axios.get(`${API_URL}/books`, props); 

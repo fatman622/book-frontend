@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getBooks} from '../actions/index';
+import {getBooks, getBooksElastic} from '../actions/index';
 import {Link} from 'react-router';
 import NewBook from './NewBook';
 import FormFilters from './FormFilters';
@@ -20,28 +20,32 @@ const styles = {
 };
 
 function uniq(a, param){
-    return a.filter(function(item, pos, array){
-        return array.map(function(mapItem){
-        	return mapItem[param]; 
-       	}).indexOf(item[param]) === pos;
-    })
+  return a.filter(function(item, pos, array){
+    return array.map(function(mapItem){
+    	return mapItem[param]; 
+   	}).indexOf(item[param]) === pos;
+  })
 }
 
 class BooksHome extends Component{
+	constructor(props) {
+		super(props);
 
-	state = {
- 		// params: { available: true },
- 		open: false,
- 		filter: SHOW_ALL,
- 		filterValue: '',
- 		value: 'ALL',
- 		books: this.props.books
- 	}
+		this.state = {
+	 		// params: { available: true },
+	 		open: false,
+	 		filter: SHOW_ALL,
+	 		filterValue: '',
+	 		value: 'ALL',
+	 		books: this.props.books,
+	 	}
+	}
 
 	componentWillMount(){
 		const params = this.state;
 		this.props.getBooks(params);
-		console.log(params)
+		console.log(params);
+		// console.log(this.props.getBooks(params));
 	}
 
 	handleToggle = () => this.setState({open: !this.state.open});
@@ -54,7 +58,7 @@ class BooksHome extends Component{
 			this.setState({ filterValue: value })
 			this.setState({ filter: SHOW_BY_NAME })
 		}
-		this.setState({ value })
+			this.setState({ value })
 	}
 
 	renderBooks(){
@@ -68,19 +72,20 @@ class BooksHome extends Component{
 		return filterBook.map((book) => {
 			return (
 				<TableRow 
-					key={book.id}>
+					// key={(this.props.books[0]._source) ? (book._source.id) : (book.id)}>
+						key={(this.props.books[0]._source) ? (book._source.id) : (book.id)}>
 			        <TableRowColumn>
 			        	<Link 
-			        		to={"books/" + book.id}> 
-		        			{book.id} 
+			        		to={(this.props.books[0]._source) ? ("books/" + book._source.id) : ("books/" + book.id)}> 
+		        			{(this.props.books[0]._source) ? (book._source.id) : (book.id)} 
 	        			</Link>
 			        </TableRowColumn>
-			        <TableRowColumn>{book.author}</TableRowColumn>
-			        <TableRowColumn>{book.text}</TableRowColumn>
-			        <TableRowColumn>{book.pages}</TableRowColumn>
+			        <TableRowColumn>{(this.props.books[0]._source) ? (book._source.author) : (book.author)}</TableRowColumn>
+			        <TableRowColumn>{(this.props.books[0]._source) ? (book._source.text) : (book.text)}</TableRowColumn>
+			        <TableRowColumn>{(this.props.books[0]._source) ? (book._source.pages) : (book.pages)}</TableRowColumn>
 							<TableRowColumn>
 								<Checkbox
-								  checked={book.available}
+								  checked={(this.props.books[0]._source) ? (book._source.available) : (book.available)}
 								  disabled={true}
 								/>
 							</TableRowColumn>
@@ -150,4 +155,4 @@ function mapStateToProps(state){
 	return {books: state.books.all}
 }
 
-export default connect(mapStateToProps, {getBooks: getBooks })(BooksHome);
+export default connect(mapStateToProps, {getBooks: getBooks, getBooksElastic: getBooksElastic})(BooksHome);

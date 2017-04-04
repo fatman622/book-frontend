@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
-import {getBooks} from '../actions/index';
+import {getBooks, getBooksElastic} from '../actions/index';
 import TextField from 'material-ui/TextField';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
@@ -23,18 +23,25 @@ const renderRadioGroup = ({ input, ...rest }) => (
 )
 
 class FormFilters extends Component{
-state = {
+
+	state = {
  		disabledTrue: false,
  		disabledFalse: true
  	}
+
  	disabledRadio(){
 		this.setState({ disabledTrue: !this.state.disabledTrue })
 		this.setState({ disabledFalse: !this.state.disabledFalse })
 	}
 
 	formKeyUp(data){
-		console.log(data)
-		this.props.getBooks({ params: { author: data.author,  available: data.available}});
+		if(data.query){
+			console.log("Query...",data.query)
+			this.props.getBooksElastic({ params: { query: data.query }});
+		} else {
+			console.log(data)
+			this.props.getBooks({ params: { author: data.author,  available: data.available }});
+		}
 	}
 
 	formAvailble(data){
@@ -52,17 +59,25 @@ state = {
         	component={renderInput} 
         	type="text" 
         />
+        <Field
+        	name="query" 
+        	component={renderInput} 
+        	type="text" 
+        />
         <Field 
         	onChange={handleSubmit(this.formAvailble.bind(this))} 
       		name="available" 
       		component={renderRadioGroup}>
           <RadioButton name="trueRadio" value={true} onClick={this.disabledRadio.bind(this)} label="Available" disabled={this.state.disabledTrue}/>
           <RadioButton name="falseRadio" value={false} onClick={this.disabledRadio.bind(this)} label="Not Available" disabled={this.state.disabledFalse}/>
-        </Field>
+        </Field>   
       </div>
 		);
 	}
 }
 
 
-export default connect(null, {getBooks: getBooks })(reduxForm({ form: 'FormFilters' })(FormFilters));
+export default connect(null, {
+	getBooks: getBooks,
+ 	getBooksElastic: getBooksElastic
+ })(reduxForm({ form: 'FormFilters' })(FormFilters));
