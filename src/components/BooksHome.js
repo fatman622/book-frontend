@@ -1,12 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {getBooks, getBooksElastic} from '../actions/index';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
+import cookie from 'react-cookie';
+import { browserHistory } from 'react-router'
+import { getBooks, getBooksElastic } from '../actions/index';
+import { SHOW_ALL, SHOW_BY_NAME } from '../actions/types';
 import NewBook from './NewBook';
 import FormFilters from './FormFilters';
-import {SHOW_ALL, SHOW_BY_NAME} from '../actions/types';
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
@@ -42,10 +44,12 @@ class BooksHome extends Component{
 	}
 
 	componentWillMount(){
+		if (!cookie.load('headersCookie')) {
+			browserHistory.push('/login');
+		}
 		const params = this.state;
 		this.props.getBooks(params);
 		console.log(params);
-		// console.log(this.props.getBooks(params));
 	}
 
 	handleToggle = () => this.setState({open: !this.state.open});
@@ -155,4 +159,4 @@ function mapStateToProps(state){
 	return {books: state.books.all}
 }
 
-export default connect(mapStateToProps, {getBooks: getBooks, getBooksElastic: getBooksElastic})(BooksHome);
+export default connect(mapStateToProps, {getBooks: getBooks, getBooksElastic: getBooksElastic })(BooksHome);

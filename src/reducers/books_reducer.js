@@ -1,6 +1,8 @@
 import {GET_BOOKS, GET_BOOK, GET_BOOKS_ELASTIC} from '../actions/types';
 
-const INITIAL_STATE ={all: [], book: null};
+const INITIAL_STATE ={
+	all: [], book: null
+};
 
 export default function(state = INITIAL_STATE, action){
 	switch(action.type){

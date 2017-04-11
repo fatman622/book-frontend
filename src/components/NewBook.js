@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {reduxForm, Field, SubmissionError} from 'redux-form';
 import {createBook, getBooks} from '../actions/index';
 import {connect} from 'react-redux';
+
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Checkbox from 'material-ui/Checkbox';
@@ -93,4 +94,4 @@ class NewBook extends Component{
 }
 
 
-export default connect(null, {createBook, getBooks: getBooks})(reduxForm({ form: 'NewBook' })(NewBook));
+export default connect(null, {createBook: createBook, getBooks: getBooks})(reduxForm({ form: 'NewBook' })(NewBook));
