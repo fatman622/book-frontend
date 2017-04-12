@@ -28,6 +28,7 @@ class NewBook extends Component{
 	static contextTypes = {
 		router: PropTypes.object
 	}
+	
 
 	onSubmit(data){
 		if(data.available !== true){

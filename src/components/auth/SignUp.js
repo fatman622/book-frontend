@@ -25,12 +25,8 @@ class SignUp extends Component{
 
 	onSubmit(data){
 		const {signUp, reset} = this.props;
-		console.log("Data....", data)
-		return signUp(data).then((request) => {
-			console.log("Request....", request)
-			cookie.save('headersCookie', request.payload.headers, { path: '/' });
-			axios.defaults.headers = cookie.load('headersCookie');
 
+		return signUp(data).then((request) => {
 			if (data.email == null) {
 	      throw new SubmissionError({ email: 'This field is required'});
 	    } 
@@ -40,14 +36,17 @@ class SignUp extends Component{
 	    if (data.password !== data.password_confirmation ) {
 	      throw new SubmissionError({ password_confirmation: 'This field is not same as password'});
 	    } 
-	    
-	    reset()
-	    browserHistory.push('/');
-		});
-	}
 
-	redirectToSignUp(){
-		browserHistory.push('/');
+			if(request.error){
+				cookie.remove('headersCookie', { path: '/' });
+			 	browserHistory.push('/sigup');
+			} else {
+	 			cookie.save('headersCookie', request.payload.headers, { path: '/' });
+				axios.defaults.headers = cookie.load('headersCookie');
+			  reset()
+			  browserHistory.push('/');
+			}
+		});
 	}
 
 	render(){

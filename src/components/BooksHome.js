@@ -34,7 +34,6 @@ class BooksHome extends Component{
 		super(props);
 
 		this.state = {
-	 		// params: { available: true },
 	 		open: false,
 	 		filter: SHOW_ALL,
 	 		filterValue: '',
@@ -77,7 +76,6 @@ class BooksHome extends Component{
 		return filterBook.map((book) => {
 			return (
 				<TableRow 
-					// key={(this.props.books[0]._source) ? (book._source.id) : (book.id)}>
 						key={(this.props.books[0]._source) ? (book._source.id) : (book.id)}>
 			        <TableRowColumn>
 			        	<Link 

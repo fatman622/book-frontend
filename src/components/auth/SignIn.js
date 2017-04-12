@@ -27,9 +27,7 @@ class SignIn extends Component{
 		const {signIn, reset} = this.props;
 
 		return signIn(data).then((request) => {
-
-			cookie.save('headersCookie', request.payload.headers, { path: '/' });
-			axios.defaults.headers = cookie.load('headersCookie');
+			
 
 			if (data.email == null) {
 	      throw new SubmissionError({ email: 'This field is required'})
@@ -37,9 +35,16 @@ class SignIn extends Component{
 			if (data.password == null) {
 	      throw new SubmissionError({ password: 'This field is required'})
 	    } 
-
-	    reset()
-	    browserHistory.push('/');
+	    if(!request.error){
+	    	cookie.save('headersCookie', request.payload.headers, { path: '/' });
+				axios.defaults.headers = cookie.load('headersCookie');
+		    reset()
+		    browserHistory.push('/');
+	 	 }else{
+	 	 		cookie.remove('headersCookie', { path: '/' });
+	 	 		browserHistory.push('/login');
+	 	 		throw new SubmissionError({ password: 'Wrong password'})
+	 	 }
 		});
 	}
 
