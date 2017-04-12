@@ -4,7 +4,7 @@ import {reduxForm, Field, SubmissionError} from 'redux-form';
 import cookie from 'react-cookie';
 import axios from 'axios';
 import { browserHistory } from 'react-router'
-import { signIn } from '../../actions/index';
+import { signUp } from '../../actions/index';
 
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -18,33 +18,36 @@ const renderInput = ({ input, label, meta: { touched, error }, ...custom }) => (
   />
 )
 
-class SignIn extends Component{
+class SignUp extends Component{
 	static contextTypes = {
 		router: PropTypes.object
 	}
 
 	onSubmit(data){
-		const {signIn, reset} = this.props;
-
-		return signIn(data).then((request) => {
-
+		const {signUp, reset} = this.props;
+		console.log("Data....", data)
+		return signUp(data).then((request) => {
+			console.log("Request....", request)
 			cookie.save('headersCookie', request.payload.headers, { path: '/' });
 			axios.defaults.headers = cookie.load('headersCookie');
 
 			if (data.email == null) {
-	      throw new SubmissionError({ email: 'This field is required'})
+	      throw new SubmissionError({ email: 'This field is required'});
 	    } 
 			if (data.password == null) {
-	      throw new SubmissionError({ password: 'This field is required'})
+	      throw new SubmissionError({ password: 'This field is required'});
 	    } 
-
+	    if (data.password !== data.password_confirmation ) {
+	      throw new SubmissionError({ password_confirmation: 'This field is not same as password'});
+	    } 
+	    
 	    reset()
 	    browserHistory.push('/');
 		});
 	}
 
 	redirectToSignUp(){
-		browserHistory.push('/signup');
+		browserHistory.push('/');
 	}
 
 	render(){
@@ -56,24 +59,24 @@ class SignIn extends Component{
 	          <Field 
 	          	name="email" 
 	          	component={renderInput} 
-	          	type="mail" 
-	          /> 
-          </div>  
-          <div>                  
+	          />     
+          </div> 
+          <div>               
 	          <Field 
 	          	name="password" 
 	          	component={renderInput} 
 	          	type="password" 
-	          />
-	        </div>
-          <FlatButton 
-          	onTouchTap={this.redirectToSignUp.bind(this)}
-        		label="Sign up" 
-        		secondary={true} 
-        		type="submit"
-        	/>
+	          /> 
+          </div>
+          <div>
+	          <Field 
+	          	name="password_confirmation" 
+	          	component={renderInput} 
+	          	type="password" 
+	          /> 
+          </div>
         	<FlatButton 
-        		label="Login" 
+        		label="Sign up" 
         		primary={true} 
         		type="submit"
         	/>
@@ -84,4 +87,4 @@ class SignIn extends Component{
 }
 
 
-export default connect(null, {signIn: signIn})(reduxForm({ form: 'SignIn' })(SignIn));
+export default connect(null, {signUp: signUp})(reduxForm({ form: 'SignUp' })(SignUp));

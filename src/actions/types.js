@@ -7,4 +7,5 @@ export const SHOW_ALL = "SHOW_ALL" ;
 export const SHOW_BY_NAME = "SHOW_BY_NAME" ;
 export const SIGN_IN = "SIGN_IN" ;
 export const SIGN_OUT = "SIGN_OUT" ;
+export const SIGN_UP = "SIGN_UP" ;
 

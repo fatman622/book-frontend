@@ -20,8 +20,8 @@ const store = createStore(
 );
 
 ReactDOM.render(
-    <Provider store={ store }>
-      <Router history={ browserHistory } routes={ routes }/>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={ store }>
+    <Router history={ browserHistory } routes={ routes }/>
+  </Provider>,
+  document.getElementById('root')
 );

@@ -8,20 +8,14 @@ import FlatButton from 'material-ui/FlatButton';
 import Checkbox from 'material-ui/Checkbox';
 
 
-const renderInput = field => (
-	<div>
-		<TextField 
-			hintText={"Enter " + field.input.name} 
-			errorText={field.error}
-		>
-			<input 
-				type={field.type} 
-				{...field.input} 
-			/>
-		</TextField>
-	</div>
+const renderInput = ({ input, label, meta: { touched, error }, ...custom }) => (
+  <TextField hintText={label}
+    floatingLabelText={label}
+    errorText={touched && error}
+    {...input}
+    {...custom}
+  />
 )
-
 const renderCheckbox = props => (
 	<div>
 	  <Checkbox 
@@ -62,21 +56,28 @@ class NewBook extends Component{
 		return(
 			<div className="newBook">
 				<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field 
-          	name="author" 
-          	component={renderInput} 
-          	type="text" 
-          />                     
-          <Field 
-          	name="text" 
-          	component={renderInput} 
-          	type="text" 
-          /> 
-          <Field 
-          	name="pages" 
-          	component={renderInput} 
-          	type="number" 
-          />
+					<div>
+	          <Field 
+	          	name="author" 
+	          	component={renderInput} 
+	          	type="text" 
+	          />
+          </div>
+          <div>                     
+	          <Field 
+	          	name="text" 
+	          	component={renderInput} 
+	          	type="text" 
+	          />
+          </div>
+          <div> 
+	          <Field 
+	          	name="pages" 
+	          	component={renderInput} 
+	          	type="number" 
+	          />
+          </div>
+          
           <Field 
           	name="available" 
           	component={renderCheckbox} 

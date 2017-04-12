@@ -1,4 +1,4 @@
-import {GET_BOOKS, GET_BOOK, CREATE_BOOK, DELETE_BOOK, GET_BOOKS_ELASTIC, SIGN_IN, SIGN_OUT} from './types';
+import {GET_BOOKS, GET_BOOK, CREATE_BOOK, DELETE_BOOK, GET_BOOKS_ELASTIC, SIGN_IN, SIGN_OUT, SIGN_UP} from './types';
 import axios from 'axios';
 import cookie from 'react-cookie';
 
@@ -61,11 +61,18 @@ export function signIn(props){
 
 }
 
-export function signOut(props){
-	const request = axios.delete(`${API_URL}/auth/sign_out`, props); 
+export function signOut(){
+	const request = axios.delete(`${API_URL}/auth/sign_out`); 
 	return {
 		type: SIGN_OUT,
 		payload: request
 	};
+}
 
+export function signUp(props){
+	const request = axios.post(`${API_URL}/auth`, props); 
+	return {
+		type: SIGN_UP,
+		payload: request
+	};
 }

@@ -46,10 +46,11 @@ class BooksHome extends Component{
 	componentWillMount(){
 		if (!cookie.load('headersCookie')) {
 			browserHistory.push('/login');
+		}else {
+			const params = this.state;
+			this.props.getBooks(params);
+			console.log(params);
 		}
-		const params = this.state;
-		this.props.getBooks(params);
-		console.log(params);
 	}
 
 	handleToggle = () => this.setState({open: !this.state.open});
