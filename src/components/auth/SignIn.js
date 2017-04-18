@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {reduxForm, Field, SubmissionError} from 'redux-form';
 import cookie from 'react-cookie';
@@ -19,10 +19,6 @@ const renderInput = ({ input, label, meta: { touched, error }, ...custom }) => (
 )
 
 class SignIn extends Component{
-	static contextTypes = {
-		router: PropTypes.object
-	}
-
 	onSubmit(data){
 		const {signIn, reset} = this.props;
 

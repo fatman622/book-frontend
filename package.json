@@ -24,7 +24,7 @@
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.8.0",
     "open": "0.0.5",
-    "react": "^15.1.0",
+    "react": "^15.5.3",
     "react-addons-css-transition-group": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-cookie": "^1.0.5",

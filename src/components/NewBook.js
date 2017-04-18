@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {reduxForm, Field, SubmissionError} from 'redux-form';
 import {createBook, getBooks} from '../actions/index';
 import {connect} from 'react-redux';
@@ -25,11 +25,6 @@ const renderCheckbox = props => (
 )
 
 class NewBook extends Component{
-	static contextTypes = {
-		router: PropTypes.object
-	}
-	
-
 	onSubmit(data){
 		if(data.available !== true){
 			data.available = false

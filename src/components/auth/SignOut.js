@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { signOut } from '../../actions/index';
 import cookie from 'react-cookie';
@@ -14,9 +14,6 @@ const styles = {
 };
 
 class SignOut extends Component{
-	static contextTypes = {
-		router: PropTypes.object
-	}
 
 	componentWillMount() {
 		if (!cookie.load('headersCookie')) {

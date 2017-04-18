@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getBook, deleteBook} from '../actions/index';
 
@@ -16,10 +16,6 @@ class SingleBookShow extends Component{
 			.then(() => {
 				this.context.router.push('/');
 			});
-	}
-
-	static contextTypes = {
-		router: PropTypes.object
 	}
 
 	render(){

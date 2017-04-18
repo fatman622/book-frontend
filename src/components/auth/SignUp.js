@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {reduxForm, Field, SubmissionError} from 'redux-form';
 import cookie from 'react-cookie';
@@ -19,14 +19,11 @@ const renderInput = ({ input, label, meta: { touched, error }, ...custom }) => (
 )
 
 class SignUp extends Component{
-	static contextTypes = {
-		router: PropTypes.object
-	}
-
 	onSubmit(data){
 		const {signUp, reset} = this.props;
 
 		return signUp(data).then((request) => {
+			console.log("Request....",request)
 			if (data.email == null) {
 	      throw new SubmissionError({ email: 'This field is required'});
 	    } 
