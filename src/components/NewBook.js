@@ -57,13 +57,15 @@ class NewBook extends Component{
 	          	name="author" 
 	          	component={renderInput} 
 	          	type="text" 
+	          	label="Author"
 	          />
           </div>
           <div>                     
 	          <Field 
 	          	name="text" 
 	          	component={renderInput} 
-	          	type="text" 
+	          	type="text"
+	          	label="Text" 
 	          />
           </div>
           <div> 
@@ -71,6 +73,7 @@ class NewBook extends Component{
 	          	name="pages" 
 	          	component={renderInput} 
 	          	type="number" 
+	          	label="Number of pages"
 	          />
           </div>
           

@@ -36,7 +36,7 @@ class SignUp extends Component{
 
 			if(request.error){
 				cookie.remove('headersCookie', { path: '/' });
-			 	browserHistory.push('/sigup');
+			 	browserHistory.push('/signup');
 			} else {
 	 			cookie.save('headersCookie', request.payload.headers, { path: '/' });
 				axios.defaults.headers = cookie.load('headersCookie');

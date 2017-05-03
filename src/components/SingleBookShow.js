@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getBook, deleteBook} from '../actions/index';
+import { browserHistory } from 'react-router'
 
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -14,7 +15,7 @@ class SingleBookShow extends Component{
 	deleteButtonClick(){
 		this.props.deleteBook(this.props.params.id)
 			.then(() => {
-				this.context.router.push('/');
+				browserHistory.push('/');
 			});
 	}
 
