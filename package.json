@@ -101,7 +101,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js  --recursive",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive",
     "test:watch": "npm run test -- --watch"
   },
   "engines": {
@@ -134,13 +134,9 @@
   },
   "babel": {
     "presets": [
-    [ "env", {
-     "presets": [
       "es2015",
       "react-app"
     ]
-    }]
-  ]
   },
   "eslintConfig": {
     "extends": "react-app"
