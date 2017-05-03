@@ -20,6 +20,7 @@
     "ejs": "2.4.1",
     "expect": "^1.20.1",
     "express": "^4.15.2",
+    "immutable": "^3.8.1",
     "material-ui": "^0.17.1",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.8.0",
@@ -33,6 +34,7 @@
     "react-router": "^2.0.1",
     "react-router-redux": "^4.0.8",
     "react-tap-event-plugin": "^2.0.1",
+    "react-tools": "^0.13.3",
     "redux": "^3.5.2",
     "redux-form": "^6.0.0-rc.3",
     "redux-immutable": "^3.1.0",
@@ -49,17 +51,20 @@
     "webpack-hot-middleware": "^2.11.0"
   },
   "devDependencies": {
-    "babel-plugin-react-transform": "^2.0.2",
-    "babel-preset-stage-0": "^6.5.0",
-    "react-transform-hmr": "^1.0.4",
     "autoprefixer": "6.7.2",
-    "babel-core": "6.22.1",
+    "babel-cli": "^6.8.0",
+    "babel-core": "^6.24.1",
     "babel-eslint": "7.1.1",
     "babel-jest": "18.0.0",
     "babel-loader": "6.2.10",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react-app": "^2.2.0",
+    "babel-preset-stage-0": "^6.5.0",
     "babel-runtime": "^6.20.0",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
+    "chai": "^3.5.0",
+    "chai-immutable": "^1.6.0",
     "chalk": "1.1.3",
     "connect-history-api-fallback": "1.3.0",
     "cross-spawn": "4.0.2",
@@ -80,10 +85,12 @@
     "http-proxy-middleware": "0.17.3",
     "jest": "18.1.0",
     "json-loader": "0.5.4",
+    "mocha": "^3.3.0",
     "object-assign": "4.1.1",
     "postcss-loader": "1.2.2",
     "promise": "7.1.1",
     "react-dev-utils": "^0.5.2",
+    "react-transform-hmr": "^1.0.4",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.14.0",
@@ -94,7 +101,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js  --recursive",
+    "test:watch": "npm run test -- --watch"
   },
   "engines": {
     "node": "7.5.0",
@@ -126,7 +134,7 @@
   },
   "babel": {
     "presets": [
-      "react-app"
+      "es2015"
     ]
   },
   "eslintConfig": {
