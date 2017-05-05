@@ -22,8 +22,8 @@ class SingleBookShow extends Component{
 	render(){
 		const styles = {
 		DeleteBook: {
-			position: 'relative',
-		  },
+			position: 'relative'
+		  }
 		};
 
 		if(!this.props.book){
@@ -31,7 +31,6 @@ class SingleBookShow extends Component{
 		}
 
 		return(
-			<div>
 			 	<Card>
 			    <CardHeader
 			      title={"Author: " + this.props.book.author}
@@ -41,13 +40,13 @@ class SingleBookShow extends Component{
 				    </CardText>
 		      	<CardActions>
 			      	<FlatButton 
+			      		id="flat"
 			      		secondary={true} 
 		      			label="Delete" 
 		      			onClick={this.deleteButtonClick.bind(this)} 
 		      			style={styles.DeleteBook}/>
 			    	</CardActions>
 			  </Card>
-			</div>
 		);
 	}
 }
