@@ -17,6 +17,10 @@ describe('reducer profile', () => {
     };
     const nextState = reducer(INITIAL_STATE, action);
     expect(nextState).to.exist;
+    expect(nextState.profile).to.deep.equal({
+      id: 1,
+      name: 'Oleg'
+    });
   });
 
   it('handles GET_PROFILES', () => {
@@ -29,7 +33,7 @@ describe('reducer profile', () => {
               name: 'Oleg' 
             },
             {
-               id: 1,
+              id: 2,
               name: 'Oleg' 
             }
         ]
@@ -37,5 +41,15 @@ describe('reducer profile', () => {
     };
     const nextState = reducer(INITIAL_STATE, action);
     expect(nextState).to.exist;
+    expect(nextState.all_profiles).to.deep.equal([
+        {
+          id: 1,
+          name: 'Oleg' 
+        },
+        {
+           id: 2,
+          name: 'Oleg' 
+        }
+    ]);
   });
 });

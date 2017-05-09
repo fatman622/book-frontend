@@ -7,16 +7,20 @@ describe('reducer book', () => {
 
   it('handles GET_BOOK', () => {
     const action = {
-        type: GET_BOOK,
-        payload: { 
-          data: {
-            id: 1,
-            name: 'Lala'
+      type: GET_BOOK,
+      payload: { 
+        data: {
+          id: 1,
+          name: 'Lala'
         }
       }
     };
     const nextState = reducer(INITIAL_STATE, action);
     expect(nextState).to.exist;
+    expect(nextState.book).to.deep.equal({
+      id: 1,
+      name: 'Lala'
+    });
   });
 
   it('handles GET_BOOKS', () => {
@@ -25,11 +29,11 @@ describe('reducer book', () => {
         payload: { 
           data: [
             {
-               id: 1,
+              id: 1,
               name: 'Lala' 
             },
             {
-               id: 1,
+              id: 1,
               name: 'Lalasa' 
             }
         ]
@@ -37,6 +41,17 @@ describe('reducer book', () => {
     };
     const nextState = reducer(INITIAL_STATE, action);
     expect(nextState).to.exist;
+    expect(nextState.all).to.deep.equal(
+      [
+        {
+          id: 1,
+          name: 'Lala' 
+        },
+        {
+          id: 1,
+          name: 'Lalasa' 
+        }
+    ]);
   });
 
    it('handles GET_BOOKS_ELASTIC', () => {
@@ -45,11 +60,11 @@ describe('reducer book', () => {
         payload: { 
           data: [
             {
-               id: 1,
+              id: 1,
               name: 'Lala' 
             },
             {
-               id: 1,
+              id: 1,
               name: 'Lalasa' 
             }
         ]
@@ -57,5 +72,16 @@ describe('reducer book', () => {
     };
     const nextState = reducer(INITIAL_STATE, action);
     expect(nextState).to.exist;
+     expect(nextState.all).to.deep.equal(
+      [
+        {
+          id: 1,
+          name: 'Lala' 
+        },
+        {
+          id: 1,
+          name: 'Lalasa' 
+        }
+    ]);
   });
 });

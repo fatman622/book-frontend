@@ -48,7 +48,7 @@ class BooksHome extends Component{
 		}else {
 			const params = this.state;
 			this.props.getBooks(params);
-			// console.log(params);
+			console.log(params);
 		}
 	}
 
